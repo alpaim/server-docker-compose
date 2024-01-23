@@ -66,8 +66,7 @@ services:
       - NTFY_BASE_URL=${NTFY_BASE_URL}
       - NTFY_AUTH_FILE=${NTFY_AUTH_FILE}
     volumes:
-      - ./ntfy/cache:/var/cache/ntfy
-      - ./ntfy/data:/etc/ntfy
+      - ./ntfy:/var/lib/ntfy
     networks:
       - nginx-proxy-manager-network
 
