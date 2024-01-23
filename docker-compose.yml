@@ -33,7 +33,7 @@ services:
     image: ghcr.io/wg-easy/wg-easy
     restart: unless-stopped
     ports:
-      - "51820:51820/udp"
+      - "${WG_PORT}:51820/udp"
       - "51821:51821/tcp"
     environment:
       - LANG=en
@@ -60,7 +60,7 @@ services:
     command:
       - serve
     environment:
-      - TZ=${HOST_TZ}
+      - TZ=${HOST_TIMEZONE}
       - NTFY_AUTH_DEFAULT_ACCESS=deny-all
       - NTFY_UPSTREAM_BASE_URL=${NTFY_UPSTREAM_BASE_URL}
       - NTFY_BASE_URL=${NTFY_BASE_URL}
