@@ -82,14 +82,25 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     command: --interval 30
 
-  teamspeak:
-    container_name: teamspeak
-    image: teamspeak:latest
+  teamspeak-nginx:
+    container_name: teamspeak-nginx
+    image: nginx:latest
     restart: unless-stopped
     ports:
       - "9987:9987/udp"
       - "9987:9987/tcp"
       - 30033:30033
+    volumes:
+      - ./teamspeak/nginx/nginx.conf:/etc/nginx/nginx.conf
+    networks:
+      - teamspeak-local
+
+  teamspeak-teamspeak:
+    container_name: teamspeak-teamspeak
+    image: teamspeak:latest
+    restart: unless-stopped
+    ports:
+      - "9989:9987/udp"
     environment:
       TS3SERVER_LICENSE: accept
     volumes:
@@ -100,4 +111,3 @@ services:
 networks:
   nginx-proxy-manager-network:
   teamspeak-local:
-    driver: bridge
